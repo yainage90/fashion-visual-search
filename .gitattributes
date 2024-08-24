@@ -1,0 +1,4 @@
+object_detection/model_ckpt/config.json filter=lfs diff=lfs merge=lfs -text
+object_detection/model_ckpt/model.safetensors filter=lfs diff=lfs merge=lfs -text
+object_detection/model_ckpt/preprocessor_config.json filter=lfs diff=lfs merge=lfs -text
+image_encoder/model_ckpt/image_encoder.pt filter=lfs diff=lfs merge=lfs -text

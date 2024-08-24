@@ -1,0 +1,9 @@
+.vscode
+.DS_STORE
+__pycache__
+crawl
+*dataset
+classification_model
+sample_images
+create*.ipynb
+convert*.ipynb
