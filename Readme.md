@@ -20,18 +20,22 @@
 
 ### 2) 이미지 인코더
 
-- 직접 크롤링하여 수집하고 전치리를 했다. 유저가 스타일 이미지를 업로드하는 서비스를 크롤링하여 스타일 이미지 - 상품 썸네일 조합의 raw 데이터를 먼저 수집하였다. 이후 스타일 이미지에 대해 객체탐지를 수행하고 상품 썸네일에 대해 카테고리 분류를 수행하여 같은 카테고리끼리 이미지 쌍으로 묶었다. (카테고리 분류기는 적당한 온라인 커머스 상품 리스트 페이지를 크롤링하여 데이터를 수집 후 학습시켰음.)
+- [onthelook](https://onthelook.co.kr/)을 크롤링하여 수집하고 전치리를 했다. 유저가 업로드한 post에서 이미지 - 상품 썸네일 조합의 raw 데이터를 먼저 수집하였다. 이후 스타일 이미지에 대해 객체탐지를 수행하고 상품 썸네일에 대해 카테고리 분류를 수행하여 같은 카테고리끼리 이미지 쌍으로 묶었다. (카테고리 분류기는 [29cm](https://29cm.co.kr/) 상품 리스트 페이지에서 썸네일과 카테고리 정보를 수집 후 학습시켰음.)
 
 ![triplet data sample1](./media/triple_data_sample1.png)
 ![triplet data sample2](./media/triple_data_sample2.png)
 
-[fashion anchor cloth pairs](https://www.kaggle.com/datasets/kritanjalijain/fashion-anchor-cloth-pairs) 같은 데이터도 있기는 하나, 상의-아우터가 하나의 'upperwear' 카테고리로 분류되어있고, 모자와 가방같은 대표적인 패션 카테고리가 없다. 또한 배경이 깔끔하여 noise가 존재하는 production 레벨의 서비스에서 사용하는 모델을 훈련시키기에는 무리가 있어보였음.
+[fashion anchor cloth pairs](https://www.kaggle.com/datasets/kritanjalijain/fashion-anchor-cloth-pairs) 모자와 가방같은 대표적인 패션 카테고리가 없다. 또한 배경이 깔끔하여 noise가 존재하는 상용 서비스를 위한 모델을 훈련시키기에는 무리가 있어보였음.
 
 학습의 편의를 위해 최종적으로는 huinggface dataset 포맷으로 변환해서 사용했다.
 
 </br>
 
-추가적으로 deepfashion2 데이터셋도 고려하였는데, 객체탐지를 위한 상품의 bounding box와 유저-커머스 업로드 이미지 쌍 정보가 있어 객체탐지와 이미지 인코더 학습 모두에 사용할 수 있다. 또한 데이터 볼륨도 크고 적당한 노이즈로 실제 환경과 훨씬 가까운 이미지이지만, 너무 제한적인 카테고리 종류로 사용하지 않았다. k-fashion 데이터셋이라는 공개 데이터셋도 있지만 역시 제한적인 카테고리 종류가 아쉽고, 이미지가 스튜디오 샷이라 노이즈가 있는 현실 데이터와의 괴리가 너무 크며 품질이 너무 아쉽기에 사용하지 않았다. 생각보다 production 레벨에 사용 가능한 공개 데이터셋이 너무 없었다.
+추가적으로 deepfashion2 데이터셋도 고려하였는데, 객체탐지를 위한 상품의 bounding box와 유저-커머스 업로드 이미지 쌍 정보가 있어 객체탐지와 이미지 인코더 학습 모두에 사용할 수 있다. 또한 데이터 볼륨도 크고 적당한 노이즈로 실제 환경과 훨씬 가까운 이미지이지만, 너무 제한적인 카테고리 종류로 사용하지 않았다.
+
+k-fashion 데이터셋이라는 공개 데이터셋도 있지만 카테고리가 너무 제한적이고, 이미지가 스튜디오 모델샷이라 노이즈가 있는 현실 데이터와의 괴리가 너무 커서 별로였다.
+
+<br>
 
 # 2. 네트워크 구조
 
@@ -48,6 +52,8 @@
 transformer 계열의 모델을 사용한 이유는 어텐션 때문인데, 노이즈가 있어도 상품 영역에 알아서 잘 가중치를 부여하기 때문이고 그 중에서도 swin transformer를 사용한 이유는 hierarchical feature map을 사용해서 초기 vision transformer의 한계를 극복하고 상품의 로컬 특징(로고, 글자 등)을 더 잘 잡아낼 수 있을것 같았기 때문이다.
 
 ![siamese network](./media/siameset_network.png)
+
+<br>
 
 # 3. 모델 사용법
 
@@ -79,7 +85,7 @@ with torch.no_grad():
         items.append((score, label, box))
 ```
 
-### 2) 임베딩 계산
+### 2) 이미지 인코더
 
 ```python
 from PIL import Image
@@ -123,6 +129,8 @@ with torch.no_grad():
     embedding = encoder(image.unsqueeze(0).to(device)).cpu().numpy()
 ```
 
+<br>
+
 # 4. 결과
 
 각 카테고리당 kream 썸네일 이미지 약 7000~8000개를 크롤링. 쿼리 이미지는 kream의 스타일 이미지 6개를 선택. 크림 썸네일을 대상으로 한 이유는 검색 페이지 리스트에서 쉽게 크롤링만으로 noise 없는 썸네일을 모을 수 있기 때문.
@@ -130,6 +138,8 @@ with torch.no_grad():
 > ! 만약 썸네일이 모델 착샷이거나 깔끔하지 않은 서비스의 경우 상품 카탈로그의 대표 이미지 등의 노이즈 없는 깔끔한 임베딩용 이미지를 따로 관리 하는 것이 좋을 것임.
 
 거리 계산은 학습때와 동일하게 L2 유사도 적용.
+
+객체 탐지부터 임베딩 계산, 유사 이미지 검색 전체 process는 [search_notebook.ipynb](./search_notebook.ipynb)에서 확인 가능.
 
 ![detect_image1](./media/detect_image1.png)
 ![reuslt_image1](./media/result_image1.png)
@@ -143,6 +153,8 @@ with torch.no_grad():
 ![reuslt_image5](./media/result_image5.png)
 ![detect_image6](./media/detect_image6.png)
 ![reuslt_image6](./media/result_image6.png)
+
+<br>
 
 # 5. 한계 및 개선점
 
