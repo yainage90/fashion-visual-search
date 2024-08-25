@@ -25,15 +25,11 @@
 ![triplet data sample1](./media/triple_data_sample1.png)
 ![triplet data sample2](./media/triple_data_sample2.png)
 
-[fashion anchor cloth pairs](https://www.kaggle.com/datasets/kritanjalijain/fashion-anchor-cloth-pairs) 모자와 가방같은 대표적인 패션 카테고리가 없다. 또한 배경이 깔끔하여 noise가 존재하는 상용 서비스를 위한 모델을 훈련시키기에는 무리가 있어보였음.
-
 학습의 편의를 위해 최종적으로는 huinggface dataset 포맷으로 변환해서 사용했다.
 
 </br>
 
-추가적으로 deepfashion2 데이터셋도 고려하였는데, 객체탐지를 위한 상품의 bounding box와 유저-커머스 업로드 이미지 쌍 정보가 있어 객체탐지와 이미지 인코더 학습 모두에 사용할 수 있다. 또한 데이터 볼륨도 크고 적당한 노이즈로 실제 환경과 훨씬 가까운 이미지이지만, 너무 제한적인 카테고리 종류로 사용하지 않았다.
-
-k-fashion 데이터셋이라는 공개 데이터셋도 있지만 카테고리가 너무 제한적이고, 이미지가 스튜디오 모델샷이라 노이즈가 있는 현실 데이터와의 괴리가 너무 커서 별로였다.
+> 추가로 [deepfasion2](https://github.com/switchablenorms/DeepFashion2), [k-fashion 데이터](https://github.com/K-COORD/K-Fashion), [fashion anchor cloth pairs](https://www.kaggle.com/datasets/kritanjalijain/fashion-anchor-cloth-pairs) 같은 공개된 데이터셋도 있지만 카테고리 종류가 별로 없거나, 스튜디오 에서 찍은 노이즈 없는 이미지라 현실과의 괴리가 있거나 하는 등의 부족함이 있어 사용하지 못했다.
 
 <br>
 
