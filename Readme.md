@@ -20,7 +20,7 @@
 
 ### 2) 이미지 인코더
 
-- [onthelook](https://onthelook.co.kr/)을 크롤링하여 수집하고 전치리를 했다. 유저가 업로드한 post에서 이미지 - 상품 썸네일 조합의 raw 데이터를 먼저 수집하였다. 이후 스타일 이미지에 대해 객체탐지를 수행하고 상품 썸네일에 대해 카테고리 분류를 수행하여 같은 카테고리끼리 이미지 쌍으로 묶었다. (카테고리 분류기는 [29cm](https://29cm.co.kr/) 상품 리스트 페이지에서 썸네일과 카테고리 정보를 수집 후 학습시켰음.)
+- [onthelook](https://onthelook.co.kr/)을 크롤링하여 수집하고 전처리를 했다. 유저가 업로드한 post에서 이미지 - 상품 썸네일 조합의 raw 데이터를 먼저 수집하였다. 이후 스타일 이미지에 대해 객체탐지를 수행하고 상품 썸네일에 대해 카테고리 분류를 수행하여 같은 카테고리끼리 이미지 쌍으로 묶었다. (카테고리 분류기는 [29cm](https://29cm.co.kr/) 상품 리스트 페이지에서 썸네일과 카테고리 정보를 수집 후 학습시켰음.)
 
 ![triplet data sample1](./media/triple_data_sample1.png)
 ![triplet data sample2](./media/triple_data_sample2.png)
