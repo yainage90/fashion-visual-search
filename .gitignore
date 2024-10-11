@@ -6,4 +6,5 @@ crawl
 classification_model
 sample_images
 create*.ipynb
-convert*.ipynb
+fashionpedia
+modanet
