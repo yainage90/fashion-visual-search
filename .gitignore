@@ -4,7 +4,6 @@ __pycache__
 *dataset
 classification_model
 sample_images
-create*.ipynb
 fashionpedia
 modanet
 crawl/target_images
