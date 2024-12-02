@@ -44,6 +44,7 @@ I used [microsoft/swin-base-patch4-window7-224](https://huggingface.co/microsoft
 The dataset used anchor (product areas detected from posts) - positive (product thumbnail) image pairs. Within each batch, all samples except one's own positive were used as negative samples, training to minimize the distance between anchor-positive pairs while maximizing the distance between anchor-negative pairs. This method is known as contrastive learning, which is the training method used by OpenAI's CLIP model.
 Initially, anchor - positive - negative pairs were explicitly constructed in a 1:1:1 ratio using triplet loss, but training with in-batch negative sampling and contrastive loss showed much better performance as it allowed learning from more negative samples.
 
+![image encoder](./media/image_encoder.png)
 ![contrastive learning](./media/contrastive_learning.png)
 
 <br>
@@ -132,7 +133,7 @@ I used approximately 15,000 KREAM thumbnail images per category as search target
 
 > ! For services where thumbnails are model shots or not clean, it would be better to separately manage noise-free, clean images for embedding purposes, such as representative images from product catalogs.
 
-Note [search_notebook.ipynb](./search_notebook.ipynb) for more details.
+Note [search_notebook.ipynb](./notebooks/search_kream.ipynb) for more details.
 
 ![detect_image1](./media/detection_image1.png)
 ![reuslt_image1](./media/result_image1.png)

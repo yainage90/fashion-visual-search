@@ -43,6 +43,7 @@ encoder는 [microsoft/swin-base-patch4-window7-224](https://huggingface.co/micro
 데이터셋은 anchor(포스팅에서 탐지된 상품 영역) - positive(상품 썸네일) 이미지 쌍을 사용하였다. 그리고 batch 내에서 자신의 positive 이외에는 모두 negtive 샘플로 사용하여 anchor-positive 사이 거리는 가까워지게, anchor-negative 사이 거리는 멀어지게 학습하였다. 이 방식은 OpenAI의 CLIP모델의 학습방법으로 알려진 contrastive learning 방식이다.
 처음에는 명시적으로 anchor - positive - negative 쌍을 1:1:1 비율로 구성하고 triplet loss를 사용했으나, 이보다는 in-batch negative 샘플링과 함께 contrastive loss 방식으로 학습시킬 경우 더 많은 negative 샘플을 학습할 수 있어 성능이 훨씬 향상되었음.
 
+![image encoder](./media/image_encoder.png)
 ![contrastive learning](./media/contrastive_learning.png)
 
 <br>
@@ -133,7 +134,7 @@ with torch.no_grad():
 
 거리 계산은 학습때와 동일하게 normalized L2 유사도(=코사인 유사도) 적용.
 
-객체 탐지부터 임베딩 계산, 유사 이미지 검색 전체 process는 [search_notebook.ipynb](./search_notebook.ipynb)에서 확인 가능.
+객체 탐지부터 임베딩 계산, 유사 이미지 검색 전체 process는 [search_notebook.ipynb](./notebooks/search_kream.ipynb)에서 확인 가능.
 
 ![detect_image1](./media/detection_image1.png)
 ![reuslt_image1](./media/result_image1.png)
