@@ -1,0 +1,8 @@
+.vscode
+.DS_STORE
+__pycache__
+crawl
+*dataset
+kream_thumbnails
+29cm_thumbnails
+*/model_ckpt

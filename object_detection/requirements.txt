@@ -1,0 +1,13 @@
+datasets==2.20.0
+torch==2.3.0
+torchvision==0.18.0
+transformers==4.44.0
+accelerate==0.32.0
+matplotlib==3.9.2
+pillow==10.4.0
+ipywidgets==8.1.3
+albumentations==1.4.18
+pycocotools==2.0.8
+timm==1.0.8
+torchmetrics==1.4.1
+maskrcnn-modanet==1.0.3
