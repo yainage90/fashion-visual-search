@@ -3,6 +3,8 @@
 __pycache__
 crawl
 *dataset
+modanet/
+fashionpedia/
 kream_thumbnails
 29cm_thumbnails
 */model_ckpt
