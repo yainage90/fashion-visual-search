@@ -14,6 +14,8 @@ This project is for image-to-image search in the fashion domain. Unlike general 
 
 ![object_detection_data_sample](./media/object_detection_data_sample.png)
 
+Huggingface dataset can be found in [https://huggingface.co/datasets/yainage90/fashion-object-detection](https://huggingface.co/datasets/yainage90/fashion-object-detection)
+
 ### 2) Image Encoder(Feature Extraction)
 
 User posting images from [onthelook](https://onthelook.co.kr/) and [kream](https://kream.co.kr) were crawled and preprocessed. First, raw data of image-product thumbnail combinations from posts were collected. Then, object detection was performed on posting images, and category classification was performed on product thumbnails to pair images of the same category together. For thumbnail category classification, a trained category classifier was used.
@@ -28,6 +30,10 @@ Finally, approximately 290,000 anchor-positive image pairs were created for 6 ca
 > Additionally, there are public datasets like [deepfasion2](https://github.com/switchablenorms/DeepFashion2), [k-fashion](https://github.com/K-COORD/K-Fashion) dataset, and [fashion anchor cloth pairs](https://www.kaggle.com/datasets/kritanjalijain/fashion-anchor-cloth-pairs), but they couldn't be used due to limitations such as having too few category types, or containing noise-free images taken in studios which create a gap with reality.
 
 <br>
+
+The final huggingface datasets can be found in the links below.
+[https://huggingface.co/datasets/yainage90/onthelook-fashion-anchor-positive-images](https://huggingface.co/datasets/yainage90/onthelook-fashion-anchor-positive-images)
+[https://huggingface.co/datasets/yainage90/kream-fashion-anchor-positive-images](https://huggingface.co/datasets/yainage90/kream-fashion-anchor-positive-images)
 
 # 2. Model architecture & Training
 
