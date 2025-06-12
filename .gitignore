@@ -1,7 +1,6 @@
 .vscode
 .DS_STORE
 __pycache__
-crawl
 *dataset
 modanet/
 fashionpedia/
